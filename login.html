@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 40px 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-card h1 {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 6px;
+    }
+
+    .login-card p.subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 32px;
+    }
+
+    .avatar {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 28px;
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* MUI jaisa outlined input */
+    .input-group {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .input-group .icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-size: 15px;
+      pointer-events: none;
+      transition: color 0.2s ease;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 16px 14px 16px 42px;
+      font-size: 15px;
+      color: #1f2937;
+      background: transparent;
+      border: 1.5px solid #c4c4c4;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-group input::placeholder {
+      color: transparent;
+    }
+
+    /* Floating label */
+    .input-group label {
+      position: absolute;
+      left: 42px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      padding: 0 6px;
+      font-size: 15px;
+      color: #6b7280;
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: 0;
+      left: 36px;
+      font-size: 12px;
+      color: #667eea;
+    }
+
+    .input-group input:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+    }
+
+    .input-group input:focus ~ .icon {
+      color: #667eea;
+    }
+
+    .input-group .toggle-pass {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-size: 15px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .input-group .toggle-pass:hover {
+      color: #667eea;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .row label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #4b5563;
+      cursor: pointer;
+    }
+
+    .row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #667eea;
+      cursor: pointer;
+    }
+
+    .row a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .row a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-login:hover {
+      box-shadow: 0 8px 22px rgba(102, 126, 234, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .btn-login:active {
+      transform: translateY(0);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 26px 0 20px;
+      color: #9ca3af;
+      font-size: 13px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #e5e7eb;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .social-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1.5px solid #e5e7eb;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #4b5563;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .social-btn:hover {
+      border-color: #667eea;
+      color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .social-btn.google:hover { color: #db4437; border-color: #db4437; }
+    .social-btn.github:hover { color: #24292e; border-color: #24292e; }
+    .social-btn.facebook:hover { color: #1877f2; border-color: #1877f2; }
+
+    .signup {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .signup a {
+      color: #667eea;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .signup a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 30px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="avatar">
+      <i class="fa-solid fa-user"></i>
+    </div>
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Please sign in to continue</p>
+
+    <form onsubmit="event.preventDefault();">
+      <!-- Email -->
+      <div class="input-group">
+        <input type="email" id="email" placeholder=" " required />
+        <label for="email">Email Address</label>
+        <i class="fa-solid fa-envelope icon"></i>
+      </div>
+
+      <!-- Password -->
+      <div class="input-group">
+        <input type="password" id="password" placeholder=" " required />
+        <label for="password">Password</label>
+        <i class="fa-solid fa-lock icon"></i>
+        <button
+          type="button"
+          class="toggle-pass"
+          onclick="togglePassword(this)"
+        >
+          <i class="fa-solid fa-eye"></i>
+        </button>
+      </div>
+
+      <div class="row">
+        <label>
+          <input type="checkbox" />
+          Remember me
+        </label>
+        <a href="#">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn-login">Login</button>
+    </form>
+
+    <div class="divider">OR</div>
+
+    <div class="socials">
+      <button class="social-btn google" title="Google">
+        <i class="fa-brands fa-google"></i>
+      </button>
+      <button class="social-btn github" title="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </button>
+      <button class="social-btn facebook" title="Facebook">
+        <i class="fa-brands fa-facebook-f"></i>
+      </button>
+    </div>
+
+    <p class="signup">
+      Don't have an account? <a href="#">Sign Up</a>
+    </p>
+  </div>
+
+  <script>
+    function togglePassword(btn) {
+      const input = document.getElementById("password");
+      const icon = btn.querySelector("i");
+      if (input.type === "password") {
+        input.type = "text";
+        icon.classList.replace("fa-eye", "fa-eye-slash");
+      } else {
+        input.type = "password";
+        icon.classList.replace("fa-eye-slash", "fa-eye");
+      }
+    }
+  </script>
+</body>
+</html>
